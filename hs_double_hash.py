@@ -4,18 +4,16 @@ class HashTable:
         self.table = [None] * size
 
     def hash_function(self, key):
-        h = 0
         if isinstance(key, str):
+            h = 0
             for char in key:
-                h ^= (h << 5) + (h >> 2) + ord(char)
+                h = (h * 31 + ord(char)) % self.size
+            return h
         else:
-            for num in key:
-                h ^= (h << 5) + (h >> 2) + num
-
-        return h % self.size
+            return key % self.size
 
     def double_hash(self, key, i):
-        return (self.hash_function(key) + i * (1 + self.hash_function(key) % (self.size - 1))) % self.size
+        return (self.hash_function(key) + i) % self.size
 
     def insert(self, key, value):
         i = 0
