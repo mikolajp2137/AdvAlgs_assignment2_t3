@@ -12,7 +12,6 @@ class HashTable:
 
     def hash_function(self, key):
         h = 0
-
         if isinstance(key, str):
             # Use a combination of polynomial rolling hash and XOR operations
             for char in key:

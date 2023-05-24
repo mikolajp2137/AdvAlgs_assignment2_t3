@@ -5,7 +5,6 @@ class HashTable:
 
     def hash_function(self, key):
         h = 0
-
         if isinstance(key, str):
             # Use a combination of polynomial rolling hash and XOR operations
             for char in key:
@@ -17,14 +16,14 @@ class HashTable:
 
         return h % self.size
 
-    def _probe(self, index):
+    def probe(self, index):
         return (index + 1) % self.size
 
     def insert(self, key, value):
         index = self.hash_function(key)
 
         while self.table[index] is not None:
-            index = self._probe(index)
+            index = self.probe(index)
 
         self.table[index] = (key, value)
 
@@ -37,7 +36,7 @@ class HashTable:
             if stored_key == key:
                 return value
 
-            index = self._probe(index)
+            index = self.probe(index)
 
         return None
 
